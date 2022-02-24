@@ -1,2 +1,2 @@
-# press CONTROL to unlock/lock head. (TOGGLE!)
-press E to open/close wings. (TOGGLE!)
+# press CONTROL to unlock/lock head.
+# press E to open/close wings.
