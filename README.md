@@ -12,3 +12,5 @@ some things i made was for fun, and some are still working in progress because o
 no
 # "Why no? You has headless!!1 😢😭😭" - The exact same New Roblox User that isn't probably new
 no
+# "When will REAL people ask questions?" - Myself lol
+soon
