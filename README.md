@@ -7,7 +7,7 @@ this section is mostly to answer some questions (keep in mind the last 2 is joke
 # "So uhhh... why does this exist?" - Some Average Joe
 for my coding things to go public
 # "I love your stuff, but isn't there more?? (Github.TheBustine99."thebustine99.github.io".getProjectAmount) seems too little." - A Different Average Joe
-some things i made was for fun, and some are still working in progress because of some certain issue. (LOOKING AT YOU, COLLISION IN HTML)
+some things i made was for fun, and some are still working in progress because of some certain issue. (no longer looking at you, collision in html)
 # "When will REAL people ask questions?" - Myself lol
 soon™
 # "Can I has 🅱️obux?" - Some New Roblox User
