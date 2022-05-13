@@ -11,6 +11,7 @@ var playerychange=0
 var walking=0
 var flooring=0
 var inwater=0
+var noairnoprob=0
 var breathing=0
 var flight=2
 var nograv=0
