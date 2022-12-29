@@ -1,4 +1,4 @@
-# thebustine99.github.io
+# cheesederg.github.io
 my website. my rules!!1
 
 in all seriousness, i wanted to make a website by myself since 2014... 8 years later, i finally did it.
@@ -10,6 +10,8 @@ for my coding things to go public
 some things i made was for fun, and some are still working in progress because of some certain issue. (no longer looking at you, collision in html)
 # "When will REAL people ask questions?" - Myself lol
 soon™
+# "Wasn't this thebustine99.github.io?" - pretty much everyone
+yes, but renamed to my new username
 # "Can I has 🅱️obux?" - Some New Roblox User
 no
 # "Why no? You has headless!!1 😢😭😭" - The exact same New Roblox User that isn't probably new
