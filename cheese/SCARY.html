@@ -1,0 +1,27 @@
+<style>
+@keyframes cheese{
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+</style>
+<body>
+<div id="cheese" style="position: absolute; left: calc(50% - 100px); top: calc(50% - 100px); height: 200px; width: 200px;" onclick="hello()">
+<img style="height: 200px; width: 200px;" src="http://deltadentalazblog.com/wp-content/uploads/2014/03/3.11-Say-Cheese.jpg">
+</div>
+</body>
+<script>
+function hello(){
+var hi = document.createElement("div")
+hi.innerHTML='<audio autoplay><source src="https://www.myinstants.com/media/sounds/gaster-vanish.mp3"></audio>'
+hi.id="gaster"
+document.getElementById("cheese").remove()
+var cheese = document.createElement("div")
+cheese.style="position: absolute; left: calc(50% - 100px); top: calc(50% - 100px); height: 200px; width: 200px; opacity: 0; animation: cheese 1s linear"
+cheese.innerHTML='<img style="height: 200px; width: 200px;" src="http://deltadentalazblog.com/wp-content/uploads/2014/03/3.11-Say-Cheese.jpg">'
+document.body.append(cheese)
+}
+</script>
