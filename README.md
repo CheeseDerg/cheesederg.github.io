@@ -2,17 +2,10 @@
 my website. my rules!!1
 
 in all seriousness, i wanted to make a website by myself since 2014... 8 years later, i finally did it.
+yes, i've been working on projects that i've not released. expect inactivity
 
 this section is mostly to answer some questions (keep in mind the last 2 is jokes)
 # "So uhhh... why does this exist?" - Some Average Joe
 for my coding things to go public
-# "I love your stuff, but isn't there more?? (Github.CheeseDerg."cheeesederg.github.io".getProjectAmount) seems too little." - A Different Average Joe
-some things i made was for fun, and some are still working in progress because of some certain issue. (no longer looking at you, collision in html)
-# "When will REAL people ask questions?" - Myself lol
+# "When are you redoing the website"
 soon™
-# "Wasn't this thebustine99.github.io?" - pretty much everyone
-yes, but renamed to my new username
-# "Can I has 🅱️obux?" - Some New Roblox User
-no
-# "Why no? You has headless!!1 😢😭😭" - The exact same New Roblox User that isn't probably new
-no
