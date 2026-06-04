@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Throwing bricks is fun! Try it!</title>
+</head>
+<style>
+@keyframes brickmurder{
+0%{
+top: 150px;
+},
+100%{
+top: 280px;
+}
+}
+@keyframes brickmurder2herewegoagain{
+0%{
+transform: rotate(0deg);
+},
+100%{
+transform: rotate(1080deg);
+}
+}
+@keyframes brickmurder3iranoutoffunnynames{
+0%{
+transform: scale(2);
+},
+100%{
+transform: scale(0.75);
+}
+}
+</style>
+<body style="user-select: none; overflow: hidden;">
+<div id="cat" style="background: url(assets/images/cat.png);position: absolute;top: calc(75% - 100px);left: calc(50% - 100px);width: 200px;height: 200px;background-size: 100% 100%;"></div>
+<div id="clickingtobricking" onclick="throwbrick()" style="position: fixed; left: 0px; height: 0px; width: 100%; height: 100%; z-index: 1000; user-select: none;"></div>
+<div id="clicktobrick" style="position: absolute; top: 100px; left: 0px; width:100%; color: #FFFFFF;filter: drop-shadow(2px 2px #000000);text-align: center;">Click anywhere to throw bricks!</div>
+<div id="hitcounter" style="position: absolute; top: 480px; left: 0px; width:100%; color: #FFFFFF;filter: drop-shadow(2px 2px #000000);text-align: center;">Cats hit: 0</div>
+<div id="justkiddingrealbricks"></div>
+<div style="background: url(assets/images/bliss.png);position: absolute;top: 0px;left: 0px;width: 100%;height: 100%;background-size: 100% 100%;z-index: -1;"></div>
+</body>
+<script>
+var bricksthrown = 0
+var catshit = 0
+var resizetothis = [window.outerWidth,window.outerHeight]
+var superlongandawfulvariablenamebecauseijustneedthisfortheloopiwilldoinlikeafewseconds = setInterval(function(){
+window.resizeTo(resizetothis[0],resizetothis[1])
+}, 50)
+var cooldown = 0
+function throwbrick(){
+if (cooldown<(Date.now())){
+if (document.getElementById("clicktobrick")){
+document.getElementById("clicktobrick").remove()
+}
+cooldown=(Date.now())+150
+var tmpid = "brick"+(Date.now()).toString()
+var tmpid2 = "kaboom"+(Date.now()).toString()
+bricksthrown+=1
+//console.log(tmpid)
+var apple = document.createElement("div")
+apple.id=tmpid
+apple.innerHTML="<div style='background: url(assets/images/brick.png); animation: brickmurder2herewegoagain 2s cubic-bezier(.3,.45,.96,.34) 1; transform: rotate(1080deg); position: relative; height: 100%; width: 100%; background-size: 100% 100%;'></div>"
+apple.style="position: absolute;top: 280px;left: 195px;width: 150px;height: 125px;background-size: 100% 100%; animation: brickmurder 2s cubic-bezier(.36,-2.21,.79,.66) 1, brickmurder3iranoutoffunnynames 2s linear 1; transform: scale(0.75); z-index: 12"
+document.getElementById("justkiddingrealbricks").append(apple)
+setTimeout(function(){
+catshit+=1
+document.getElementById("hitcounter").innerHTML="Cats hit: "+catshit
+var banana = document.createElement("img")
+banana.id=tmpid2
+banana.src="assets/images/boom.gif?"+(Date.now()).toString()
+banana.style="position: absolute;top: 200px;left: 195px;width: 160px;height: 250px;background-size: 100% 100%;"
+document.getElementById("justkiddingrealbricks").append(banana)
+sound(2)
+}, 1920)
+
+setTimeout(function(){
+document.getElementById(tmpid).remove()
+}, 2000)
+setTimeout(function(){
+sound(1)
+}, 2200)
+setTimeout(function(){
+document.getElementById(tmpid2).remove()
+}, 3600)
+}
+}
+function sound(id){
+var playthis = ""
+var volume = 1
+if (id==1){
+playthis = "assets/sound/angry.mp3"
+volume = 0.2
+} else if (id==2){
+playthis = "assets/sound/explosion.mp3"
+volume = 0.6
+}
+
+if (playthis!=""){
+var audio = new Audio(playthis);
+audio.volume=volume
+audio.play()
+setTimeout(function(){
+audio.remove()
+}, 2500)
+} else {
+console.error("Provide a valid sound id!")
+}
+}
+</script>
+</html>
