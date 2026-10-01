@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Grill the Patty Simulator</title>
+</head>
+<style>
+@keyframes gain{
+0%{
+bottom: 58%
+}, 100%{
+bottom: 64%
+}
+}
+button{
+background-color: #CCCCCCCC;
+cursor: pointer;
+}
+button:hover{
+background-color: #FFFFFFFF;
+}
+button:active{
+background-color: #AAAAAAAA;
+}
+button:disabled{
+background-color: #AA8888CC;
+color: #000000;
+cursor: not-allowed;
+}
+</style>
+<body style="user-select: none;">
+<img src="assets/bliss.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;object-fit: fill;z-index: -1;" draggable="false">
+<img id="grill" src="assets/grill.png" style="position: absolute;left: 40%;bottom: 35%;width: 20%;height: 30%;z-index: 1; opacity: 1; transition: height 2.5s cubic-bezier(.17,.84,.44,1), opacity 2.5s linear;" draggable="false">
+<img id="fire" src="assets/fire.gif" style="display: none; position: absolute;left: 40%; bottom: 35%;width: 20%;height: 50%;z-index: 3;image-rendering: pixelated; cursor: grab; filter: brightness(1); opacity: 1; transition: opacity 2.5s linear;" onclick="putout()" draggable="false">
+<div style="position: absolute; left: calc(50% - 162px); bottom: 48px; width: 300px; height: 125px; z-index: 10; background-color: #CCCCCC66; padding: 0px 10px 10px 10px;border-radius: 25px;border: 2px solid #000000;backdrop-filter: blur(4px);">
+<div style="font-size: 250%">
+<c contenteditable="true" spellcheck="false" style="font-family: monospace;display: inline-block;max-width: 144px;position: relative;min-width: 20px;" id="name">Edius</c><c style="font-family: monospace">'s Grill</c></div>
+<div style="color: orange; filter: drop-shadow(1px 1px #000)">Heat: <i id="heat">1.00</i>x<c id="heatcap"></c></div>
+<div id="score" style="color: #44FF00; filter: drop-shadow(1px 1px #000)">Money: $<i id="money">500.00</i></div>
+<div style="color: #FF4400; filter: drop-shadow(1px 1px #000)">Grill: <i id="health">100</i>/<i>100</i></div>
+</div>
+<div id="gameover" style="position: absolute; left: calc(50% - 162px); top: -326px; width: 300px; height: 160px;background-color: #CCCCCC66; z-index: 19742;padding: 0px 10px 10px 10px;border-radius: 25px;border: 2px solid #000000;backdrop-filter: blur(4px); transition: top 0.5s cubic-bezier(.17,.84,.44,1);">
+<div style="font-size: 200%;width: 100%;text-align: center;">
+<c style="font-family: monospace">Out of Business..</c></div>
+<div style="color: #ff5e20; filter: drop-shadow(1px 1px #000)">Patties Grilled: <i id="grillgood">0</i></div><div style="color: #ff2a20; filter: drop-shadow(1px 1px #000)">Patties Botched: <i id="grillbad">0</i></div>
+<div style="color: #44FF00; filter: drop-shadow(1px 1px #000)">Money Earned: $<i id="moneygain">0.00</i></div><div style="color: #F00; filter: drop-shadow(1px 1px #000)">Money Lost: $<i id="moneylost">0.00</i></div>
+<div style="color: #00B7FF; filter: drop-shadow(1px 1px #000)">Grill Accuracy: <i id="accuracy">0</i>%</div>
+</div>
+<div id="fullblur" style="pointer-events: none; position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; opacity: 0; background-color: #00000066;z-index: 100; transition: opacity 0.5s linear"></div>
+<div id="help" style="position: absolute; left: calc(50% - 162px); top: -460px; width: 300px; height: 446px;background-color: #CCCCCC66; z-index: 19742;padding: 0px 10px 10px 10px;border-radius: 25px;border: 2px solid #000000;backdrop-filter: blur(4px); transition: top 0.5s cubic-bezier(.17,.84,.44,1);">
+<div style="font-size: 200%;width: 100%;text-align: center;">
+<c style="font-family: monospace">Instructions</c></div>
+<div style="color: #FFFFFF; filter: drop-shadow(1px 1px #000)">Welcome to Grill the Patty Simulator!<br><br>In this game, you're a cook! Demand's rising, and every patty's on you.<br>You have to cook as close to perfection as possible! <i>Watch the patty cook bar..</i><br><br>Cooking correctly gets you <c style="color: #44FF00">PAID</c>, and botching the patty <c style="color: #FF8800">burns your wallet</c>. Each patty warms your grill slightly. <br>If you burn something, take the loss before it takes your grill!<br><br><c style="position: relative; width: 100%; text-align: center; display: inline-block">~~~~~ Controls ~~~~~<br>Left Click - Flip Patty<br>Right Click - Sell Patty</c><br><br><c style="position: absolute; right: -2px; bottom: -7px; text-align: right;">v1.0.0<br>CheeseDerg</c><button onclick="help()" oncontextmenu="help()" style="position: absolute; bottom: -10px; width: 74px; height: 25px; left: calc(50% - 37px); z-index:19742; border: 2px solid #000000; border-radius: 6px; cursor: pointer;">Gotcha!</button></div>
+</div>
+<img id="patty0" src="assets/patty.png" style="display: none; position: absolute;left: 45.5%;top: 36.5%;width: 5%;height: 5%;z-index: 1; transition: top 0.75s linear, rotateY 1.5s ease-in-out" onclick="flip(0)">
+<div id="pattybar0" style="display: none; position:absolute; top:32%; left: 45%; width:5%; height: 2.5%; background-color:#00FF00; z-index:2"><div id="bar0" style="position: absolute; right: 0px; top: 0px; width:50%; height: 100%; background-color:#000000"></div></div>
+<img id="patty1" src="assets/patty.png" style="position: absolute;left: 51.5%;top: 36.5%;width: 5%;height: 5%;z-index: 1; transition: top 0.75s linear, rotateY 1.5s ease-in-out; display: none;" onclick="flip(1)">
+<div id="pattybar1" style="display: none; position:absolute; top:32%; left: 51%; width:5%; height: 2.5%; background-color:#00FF00; z-index:2"><div id="bar1" style="position: absolute; right: 0px; top: 0px; width:50%; height: 100%; background-color:#000000"></div></div>
+<button id="pluspatty" onclick="pattyaddtime()" oncontextmenu="pattyaddtime()" style="position: absolute; bottom: 10px; width: 74px; height: 25px; left: calc(50% - 81px); z-index:10; border: 2px solid #000000; border-radius: 6px;">Plus Patty</button>
+<button id="help" onclick="help()" oncontextmenu="help()" style="position: absolute; bottom: 10px; width: 74px; height: 25px; left: calc(50% + 7px); z-index:10; border: 2px solid #000000; border-radius: 6px; cursor: pointer;">Help!</button>
+</body>
+<script>
+var cookTime = [[140,140],[140,140]]
+var score = 50000
+var gainlost = [0,0]
+var fire = false
+var grillhealth = 100
+var heat = 1
+var cooking = [false,false]
+var flipped = [false,false]
+var haspatty = [false,false]
+var gameover = false
+var firehealth = 0
+var pattiesgrilled = [0,0]
+var cookstates = []
+var deg = [0,0]
+var helpopen = false
+document.oncontextmenu = document.getElementById("patty0").oncontextmenu = function() {collect(0)}
+document.oncontextmenu = document.getElementById("patty1").oncontextmenu = function() {collect(1)}
+document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
+function flip(id){
+cooking[id]=false
+document.getElementById("patty"+id).style.transition="top 0.75s ease-in, transform 1.5s ease-in-out"
+document.getElementById("patty"+id).style.top="29.5%"
+deg[id]++
+document.getElementById("patty"+id).style.transform="rotateX("+(deg[id]*180)+"deg)"
+document.getElementById("pattybar"+id).style.display="none"
+
+setTimeout(function(){
+flipped[id]=!flipped[id]
+document.getElementById("patty"+id).style.transition="top 0.75s ease-out, transform 1.5s ease-in-out"
+document.getElementById("patty"+id).style.top="36.5%"
+}, 750)
+setTimeout(function(){
+cooking[id]=true
+document.getElementById("pattybar"+id).style.display=""
+}, 1500)
+}
+function collect(id,hide){
+if (hide==undefined){
+hide==false
+}
+if (cooking[id] || hide){
+calc = cookTime[id]
+cookstates.push(cookTime[id][0])
+cookstates.push(cookTime[id][1])
+scoreinc = 0
+if (calc[0]<=0 || calc[1]<=0 || calc[0]>=120 || calc[1]>=120){
+scoreinc=-100
+pattiesgrilled[1]++
+} else {
+pattiesgrilled[0]++
+heat+=0.01
+if (heat>2.5){
+heat=2.5
+}
+var heatstr=(heat*100).toString()
+heatstr=(Math.trunc(heat))+"."+heatstr.substring(((heatstr.length)-2))
+document.getElementById("heat").innerHTML=heatstr
+if (heat==2.5){
+document.getElementById("heatcap").innerHTML=" (CAPPED)"
+}
+if (calc[0]>0.285714286){
+scoreinc+=100*((1-(calc[0]/140))/0.714285714)
+} else {
+scoreinc+=100*((calc[0]/140)/0.285714286)
+}
+if (calc[1]>0.285714286){
+scoreinc+=100*((1-(calc[1]/140))/0.714285714)
+} else {
+scoreinc+=100*((calc[1]/140)/0.285714286)
+}
+}
+score+=Math.trunc((scoreinc-150)*100)
+if ((scoreinc-150)<0){
+gainlost[1]+=Math.trunc(Math.abs(scoreinc-150)*100)
+} else {
+gainlost[0]+=Math.trunc(Math.abs(scoreinc-150)*100)
+}
+if (score>=100){
+var scorestringsetup=score.toString()
+scorestringsetup=(Math.trunc(score/100))+"."+scorestringsetup.substring(((scorestringsetup.length)-2))
+document.getElementById("money").innerHTML=scorestringsetup
+document.getElementById("score").style.color="#44ff00"
+} else if (score>0) {
+document.getElementById("money").innerHTML=Math.trunc(score)/100
+document.getElementById("score").style.color="#880000"
+} else if (score==0) {
+document.getElementById("money").innerHTML="0.00"
+document.getElementById("score").style.color="#444444"
+} else {
+document.getElementById("score").innerHTML="Bankrupt!"
+document.getElementById("score").style.color="#000000"
+gameovercutscene(1)
+}
+if (!hide){
+var scoreinc2 = document.createElement("div")
+var tempid = "gain"+(Math.random()*999999999)
+scoreinc2.id=tempid
+if (scoreinc<100){
+scoreinc2.style="animation: gain 1s cubic-bezier(.57,.87,.43,1.61); transition: opacity 0.25s linear; opacity: 1; position: absolute; bottom: 64%; left: "+(45+(id*6))+"%; width: 5%; height: 20px; background-color: transparent; z-index: 100;text-align: center;color: #FF4400;filter: drop-shadow(1px 1px #000);"
+scoreinc2.innerText="-$"+(Math.trunc(Math.abs(scoreinc-150)*100)/100)+".."
+} else {
+scoreinc2.style="animation: gain 1s cubic-bezier(.57,.87,.43,1.61); transition: opacity 0.25s linear; opacity: 1; position: absolute; bottom: 64%; left: "+(45+(id*6))+"%; width: 5%; height: 20px; background-color: transparent; z-index: 100;text-align: center;color: #44FF00;filter: drop-shadow(1px 1px #000);"
+scoreinc2.innerText="$"+(Math.trunc(Math.abs(scoreinc-150)*100)/100)+"!"
+}
+document.body.append(scoreinc2)
+setTimeout(function(){
+document.getElementById(tempid).style.opacity="0"
+}, 1750)
+setTimeout(function(){
+document.getElementById(tempid).remove()
+}, 2000)
+}
+haspatty[id]=false
+cookTime[id]=[140,140]
+cooking[id]=false
+flipped[id]=true
+document.getElementById("patty"+id).style.display="none"
+document.getElementById("pattybar"+id).style.display="none"
+document.getElementById("pluspatty").disabled=false
+document.getElementById("bar"+id).style.width="100%"
+document.getElementById("patty"+id).style.filter="brightness(1)"
+if (deg[id]%2==1){
+deg[id]++
+document.getElementById("patty"+id).style.transform="rotateX("+(deg[id]*180)+"deg)"
+}
+}
+}
+var intervalcount=-1
+var tick = setInterval(function(){
+if (gameover){
+clearInterval(tick)
+}
+if (fire==false){
+if (cookTime[0][0]<=-140 || cookTime[0][1]<=-140 || cookTime[1][0]<=-140 || cookTime[1][1]<=-140){
+if (haspatty[0]){
+collect(0,true)
+}
+if (haspatty[1]){
+collect(1,true)
+}
+firehealth=5
+document.getElementById("fire").style.height="50%"
+document.getElementById("fire").style.display=""
+fire=true
+document.getElementById("pluspatty").disabled=true
+}
+}
+intervalcount++
+cookbars()
+if (intervalcount%2==0){
+grillfire()
+}
+}, 50)
+function cookbars(){
+if (flipped[0]){
+if (cooking[0]){
+cookTime[0][1]-=heat
+}
+document.getElementById("bar0").style.width=((Math.max(0,(cookTime[0][1]/140)))*100)+"%"
+document.getElementById("patty0").style.filter="brightness("+(Math.max(0,(cookTime[0][1]/140)))+")"
+burnbar(0,1)
+} else {
+if (cooking[0]){
+cookTime[0][0]-=heat
+}
+document.getElementById("bar0").style.width=((Math.max(0,(cookTime[0][0]/140)))*100)+"%"
+document.getElementById("patty0").style.filter="brightness("+(Math.max(0,(cookTime[0][0]/140)))+")"
+burnbar(0,0)
+}
+if (flipped[1]){
+if (cooking[1]){
+cookTime[1][1]-=heat
+}
+document.getElementById("bar1").style.width=((Math.max(0,(cookTime[1][1]/140)))*100)+"%"
+document.getElementById("patty1").style.filter="brightness("+(Math.max(0,(cookTime[1][1]/140)))+")"
+burnbar(1,1)
+} else {
+if (cooking[1]){
+cookTime[1][0]-=heat
+}
+document.getElementById("bar1").style.width=((Math.max(0,(cookTime[1][0]/140)))*100)+"%"
+document.getElementById("patty1").style.filter="brightness("+(Math.max(0,(cookTime[1][0]/140)))+")"
+burnbar(1,0)
+}
+}
+function burnbar(id,flipped){
+if ((Math.max(0,(cookTime[id][flipped]/140)))>0.571428571){
+document.getElementById("pattybar"+id).style.backgroundColor="#FF0000"
+} else if ((Math.max(0,(cookTime[id][flipped]/140)))<=0.571428571 && (Math.max(0,(cookTime[id][flipped]/140)))>0.357142857){
+document.getElementById("pattybar"+id).style.backgroundColor="#FF4400"
+} else if ((Math.max(0,(cookTime[id][flipped]/140)))<=0.357142857 && (Math.max(0,(cookTime[id][flipped]/140)))>0.214285714){
+document.getElementById("pattybar"+id).style.backgroundColor="#00FF00"
+} else if ((Math.max(0,(cookTime[id][flipped]/140)))<=0.214285714 && (Math.max(0,(cookTime[id][flipped]/140)))>0){
+document.getElementById("pattybar"+id).style.backgroundColor="#FF4400"
+} else {
+document.getElementById("pattybar"+id).style.backgroundColor="#440000"
+}
+}
+function pattyaddtime(){
+if (haspatty[0]==false){
+haspatty[0]=true
+cookTime[0]=[140,140]
+cooking[0]=true
+flipped[0]=true
+document.getElementById("patty0").style.display=""
+document.getElementById("pattybar0").style.display=""
+document.getElementById("bar0").style.width="100%"
+document.getElementById("patty0").style.filter="brightness(1)"
+} else if (haspatty[1]==false){
+haspatty[1]=true
+cookTime[1]=[140,140]
+cooking[1]=true
+flipped[1]=true
+document.getElementById("patty1").style.display=""
+document.getElementById("pattybar1").style.display=""
+document.getElementById("bar1").style.width="100%"
+document.getElementById("patty1").style.filter="brightness(1)"
+document.getElementById("pluspatty").disabled=true
+}
+}
+function grillfire(){
+if (grillhealth>0){
+if (fire){
+grillhealth-=0.2*firehealth
+document.getElementById("health").innerHTML=Math.trunc(grillhealth+0.99)
+}
+} else {
+gameover=true
+gameovercutscene(0)
+}
+}
+function gameovercutscene(id){
+if (helpopen) {
+helpopen=false
+document.getElementById("help").style.top="-460px"
+document.getElementById("fullblur").style.opacity=0
+}
+document.body.style="user-select: none; pointer-events: none;"
+if (id==0){
+document.getElementById("grill").style.filter="brightness(0.5) grayscale(1)"
+document.getElementById("grill").style.height="3%"
+}
+if (id==1){
+document.getElementById("grill").style.opacity=0
+document.getElementById("fire").style.opacity=0
+}
+document.getElementById("grillgood").innerHTML=pattiesgrilled[0]
+document.getElementById("grillbad").innerHTML=pattiesgrilled[1]
+if (gainlost[0]>=100){
+var gainlost0thing =gainlost[0].toString()
+gainlost0thing=(Math.trunc(gainlost[0]/100))+"."+gainlost0thing.substring(((gainlost0thing.length)-2))
+document.getElementById("moneygain").innerHTML=gainlost0thing
+} else if (gainlost[0]>0) {
+document.getElementById("moneygain").innerHTML=Math.trunc(gainlost[0])/100
+} else if (gainlost[0]==0) {
+document.getElementById("moneygain").innerHTML="0.00"
+}
+if (gainlost[1]>=100){
+var gainlost1thing =gainlost[1].toString()
+gainlost1thing=(Math.trunc(gainlost[1]/100))+"."+gainlost1thing.substring(((gainlost1thing.length)-2))
+document.getElementById("moneylost").innerHTML=gainlost1thing
+} else if (gainlost[1]>0) {
+document.getElementById("moneylost").innerHTML=Math.trunc(gainlost[1])/100
+} else if (gainlost[1]==0) {
+document.getElementById("moneylost").innerHTML="0.00"
+}
+grillacc=0
+if (cookstates.length!=0){
+var end = 0
+for (var i = 0; i<cookstates.length; i++){
+if (cookstates[i]>=40){
+grillacc+=1-((cookstates[i]-40)/100)
+} else {
+grillacc+=Math.max(0,((cookstates[i]-0)/40))
+}
+end=i
+}
+grillacc/=cookstates.length
+}
+document.getElementById("accuracy").innerHTML=(Math.trunc(grillacc*10000)/100)
+setTimeout(function(){
+document.getElementById("gameover").style.top="calc(50% - 132px)"
+document.getElementById("fullblur").style.pointerEvents="all"
+document.getElementById("fullblur").style.opacity=1
+}, 3000)
+}
+function putout(){
+firehealth--
+document.getElementById("fire").style.height=(50-(10*(5-firehealth)))+"%"
+if (firehealth==0){
+document.getElementById("fire").style.display="none"
+fire=false
+document.getElementById("pluspatty").disabled=false
+}
+}
+var lastvalidname="Edius"
+document.getElementById("name").addEventListener('input', function (evt) {
+if (document.getElementById("name").innerHTML.length>8){
+document.getElementById("name").innerHTML=lastvalidname
+} else {
+lastvalidname=document.getElementById("name").innerHTML
+}
+});
+function help(){
+if (!helpopen){
+helpopen=true
+document.getElementById("help").style.top="calc(50% - 250px)"
+document.getElementById("fullblur").style.pointerEvents="all"
+document.getElementById("fullblur").style.opacity=1
+} else {
+helpopen=false
+document.getElementById("help").style.top="-460px"
+document.getElementById("fullblur").style.opacity=0
+document.getElementById("fullblur").style.pointerEvents="none"
+}
+}
+</script>
+</html>
