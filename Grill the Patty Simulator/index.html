@@ -31,32 +31,32 @@ cursor: not-allowed;
 <img src="assets/bliss.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;object-fit: fill;z-index: -1;" draggable="false">
 <img id="grill" src="assets/grill.png" style="position: absolute;left: 40%;bottom: 35%;width: 20%;height: 30%;z-index: 1; opacity: 1; transition: height 2.5s cubic-bezier(.17,.84,.44,1), opacity 2.5s linear;" draggable="false">
 <img id="fire" src="assets/fire.gif" style="display: none; position: absolute;left: 40%; bottom: 35%;width: 20%;height: 50%;z-index: 3;image-rendering: pixelated; cursor: grab; filter: brightness(1); opacity: 1; transition: opacity 2.5s linear;" onclick="putout()" draggable="false">
-<div style="position: absolute; left: calc(50% - 162px); bottom: 48px; width: 300px; height: 125px; z-index: 10; background-color: #CCCCCC66; padding: 0px 10px 10px 10px;border-radius: 25px;border: 2px solid #000000;backdrop-filter: blur(4px);">
-<div style="font-size: 250%">
+<div style="position: absolute; left: calc(50% - 162px); bottom: 48px; width: 300px; height: 125px; z-index: 10; background-color: #CCCCCC66; padding: 0px 10px 10px 10px;border-radius: 25px;border: 2px solid #000000;backdrop-filter: blur(4px); font-size: 16px;">
+<div style="font-size: 30px;padding-top: 5px;">
 <c contenteditable="true" spellcheck="false" style="font-family: monospace;display: inline-block;max-width: 144px;position: relative;min-width: 20px;" id="name">Edius</c><c style="font-family: monospace">'s Grill</c></div>
 <div style="color: orange; filter: drop-shadow(1px 1px #000)">Heat: <i id="heat">1.00</i>x<c id="heatcap"></c></div>
 <div id="score" style="color: #44FF00; filter: drop-shadow(1px 1px #000)">Money: $<i id="money">500.00</i></div>
 <div style="color: #FF4400; filter: drop-shadow(1px 1px #000)">Grill: <i id="health">100</i>/<i>100</i></div>
 </div>
-<div id="gameover" style="position: absolute; left: calc(50% - 162px); top: -326px; width: 300px; height: 160px;background-color: #CCCCCC66; z-index: 19742;padding: 0px 10px 10px 10px;border-radius: 25px;border: 2px solid #000000;backdrop-filter: blur(4px); transition: top 0.5s cubic-bezier(.17,.84,.44,1);">
+<div id="gameover" style="position: absolute; left: calc(50% - 162px); top: -326px; width: 300px; height: 160px;background-color: #CCCCCC66; z-index: 19742;padding: 0px 10px 10px 10px;border-radius: 25px;border: 2px solid #000000;backdrop-filter: blur(4px); transition: top 0.5s cubic-bezier(.17,.84,.44,1); font-size: 16px;">
 <div style="font-size: 200%;width: 100%;text-align: center;">
 <c style="font-family: monospace">Out of Business..</c></div>
 <div style="color: #ff5e20; filter: drop-shadow(1px 1px #000)">Patties Grilled: <i id="grillgood">0</i></div><div style="color: #ff2a20; filter: drop-shadow(1px 1px #000)">Patties Botched: <i id="grillbad">0</i></div>
 <div style="color: #44FF00; filter: drop-shadow(1px 1px #000)">Money Earned: $<i id="moneygain">0.00</i></div><div style="color: #F00; filter: drop-shadow(1px 1px #000)">Money Lost: $<i id="moneylost">0.00</i></div>
 <div style="color: #00B7FF; filter: drop-shadow(1px 1px #000)">Grill Accuracy: <i id="accuracy">0</i>%</div>
 </div>
-<div id="fullblur" style="pointer-events: none; position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; opacity: 0; background-color: #00000066;z-index: 100; transition: opacity 0.5s linear"></div>
+<div id="fullblur" style="pointer-events: none; position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; opacity: 0; background-color: #00000066;z-index: 100; transition: opacity 0.5s linear; font-size: 16px;"></div>
 <div id="help" style="position: absolute; left: calc(50% - 162px); top: -460px; width: 300px; height: 446px;background-color: #CCCCCC66; z-index: 19742;padding: 0px 10px 10px 10px;border-radius: 25px;border: 2px solid #000000;backdrop-filter: blur(4px); transition: top 0.5s cubic-bezier(.17,.84,.44,1);">
 <div style="font-size: 200%;width: 100%;text-align: center;">
 <c style="font-family: monospace">Instructions</c></div>
-<div style="color: #FFFFFF; filter: drop-shadow(1px 1px #000)">Welcome to Grill the Patty Simulator!<br><br>In this game, you're a cook! Demand's rising, and every patty's on you.<br>You have to cook as close to perfection as possible! <i>Watch the patty cook bar..</i><br><br>Cooking correctly gets you <c style="color: #44FF00">PAID</c>, and botching the patty <c style="color: #FF8800">burns your wallet</c>. Each patty warms your grill slightly. <br>If you burn something, take the loss before it takes your grill!<br><br><c style="position: relative; width: 100%; text-align: center; display: inline-block">~~~~~ Controls ~~~~~<br>Left Click - Flip Patty<br>Right Click - Sell Patty</c><br><br><c style="position: absolute; right: -2px; bottom: -7px; text-align: right;">v1.0.0<br>CheeseDerg</c><button onclick="help()" oncontextmenu="help()" style="position: absolute; bottom: -10px; width: 74px; height: 25px; left: calc(50% - 37px); z-index:19742; border: 2px solid #000000; border-radius: 6px; cursor: pointer;">Gotcha!</button></div>
+<div style="color: #FFFFFF; filter: drop-shadow(1px 1px #000)">Welcome to Grill the Patty Simulator!<br><br>In this game, you're a cook! Demand's rising, and every patty's on you.<br>You have to cook as close to perfection as possible! <i>Watch the patty cook bar..</i><br><br>Cooking correctly gets you <c style="color: #44FF00">PAID</c>, and botching the patty <c style="color: #FF8800">burns your wallet</c>. Each patty warms your grill slightly. <br>If you burn something, take the loss before it takes your grill!<br><br><c style="position: relative; width: 100%; text-align: center; display: inline-block">~~~~~ Controls ~~~~~<br>Left Click - Flip Patty<br>Right Click - Sell Patty</c><br><br><c style="position: absolute; right: -2px; bottom: -7px; text-align: right;">v1.0.1<br>CheeseDerg</c><button onclick="help()" oncontextmenu="help()" style="position: absolute; bottom: -10px; width: 74px; height: 25px; left: calc(50% - 37px); z-index:19742; border: 2px solid #000000; border-radius: 6px; cursor: pointer; font-size: 12px;">Gotcha!</button></div>
 </div>
-<img id="patty0" src="assets/patty.png" style="display: none; position: absolute;left: 45.5%;top: 36.5%;width: 5%;height: 5%;z-index: 1; transition: top 0.75s linear, rotateY 1.5s ease-in-out" onclick="flip(0)">
+<img id="patty0" src="assets/patty.png" style="display: none; position: absolute;left: 45.5%;top: 36.5%;width: 5%;height: 5%;z-index: 1; transition: top 0.75s linear, rotateY 1.5s ease-in-out" onclick="flip(0)" draggable="false">
 <div id="pattybar0" style="display: none; position:absolute; top:32%; left: 45%; width:5%; height: 2.5%; background-color:#00FF00; z-index:2"><div id="bar0" style="position: absolute; right: 0px; top: 0px; width:50%; height: 100%; background-color:#000000"></div></div>
-<img id="patty1" src="assets/patty.png" style="position: absolute;left: 51.5%;top: 36.5%;width: 5%;height: 5%;z-index: 1; transition: top 0.75s linear, rotateY 1.5s ease-in-out; display: none;" onclick="flip(1)">
+<img id="patty1" src="assets/patty.png" style="position: absolute;left: 51.5%;top: 36.5%;width: 5%;height: 5%;z-index: 1; transition: top 0.75s linear, rotateY 1.5s ease-in-out; display: none;" onclick="flip(1)" draggable="false">
 <div id="pattybar1" style="display: none; position:absolute; top:32%; left: 51%; width:5%; height: 2.5%; background-color:#00FF00; z-index:2"><div id="bar1" style="position: absolute; right: 0px; top: 0px; width:50%; height: 100%; background-color:#000000"></div></div>
-<button id="pluspatty" onclick="pattyaddtime()" oncontextmenu="pattyaddtime()" style="position: absolute; bottom: 10px; width: 74px; height: 25px; left: calc(50% - 81px); z-index:10; border: 2px solid #000000; border-radius: 6px;">Plus Patty</button>
-<button id="help" onclick="help()" oncontextmenu="help()" style="position: absolute; bottom: 10px; width: 74px; height: 25px; left: calc(50% + 7px); z-index:10; border: 2px solid #000000; border-radius: 6px; cursor: pointer;">Help!</button>
+<button id="pluspatty" onclick="pattyaddtime()" oncontextmenu="pattyaddtime()" style="position: absolute; bottom: 10px; width: 74px; height: 25px; left: calc(50% - 81px); z-index:10; border: 2px solid #000000; border-radius: 6px; font-size: 12px;">Plus Patty</button>
+<button id="help" onclick="help()" oncontextmenu="help()" style="position: absolute; bottom: 10px; width: 74px; height: 25px; left: calc(50% + 7px); z-index:10; border: 2px solid #000000; border-radius: 6px; cursor: pointer; font-size: 12px;">Help!</button>
 </body>
 <script>
 var cookTime = [[140,140],[140,140]]
@@ -64,7 +64,7 @@ var score = 50000
 var gainlost = [0,0]
 var fire = false
 var grillhealth = 100
-var heat = 1
+var heat = 100
 var cooking = [false,false]
 var flipped = [false,false]
 var haspatty = [false,false]
@@ -78,6 +78,7 @@ document.oncontextmenu = document.getElementById("patty0").oncontextmenu = funct
 document.oncontextmenu = document.getElementById("patty1").oncontextmenu = function() {collect(1)}
 document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
 function flip(id){
+if (cooking[id]){
 cooking[id]=false
 document.getElementById("patty"+id).style.transition="top 0.75s ease-in, transform 1.5s ease-in-out"
 document.getElementById("patty"+id).style.top="29.5%"
@@ -95,6 +96,7 @@ cooking[id]=true
 document.getElementById("pattybar"+id).style.display=""
 }, 1500)
 }
+}
 function collect(id,hide){
 if (hide==undefined){
 hide==false
@@ -109,22 +111,24 @@ scoreinc=-100
 pattiesgrilled[1]++
 } else {
 pattiesgrilled[0]++
-heat+=0.01
-if (heat>2.5){
-heat=2.5
+heat++
+if (heat>250){
+heat=250
 }
-var heatstr=(heat*100).toString()
-heatstr=(Math.trunc(heat))+"."+heatstr.substring(((heatstr.length)-2))
+var heatstr=(heat).toString()
+heatstr=(Math.trunc(heat/100))+"."+heatstr.substring(((heatstr.length)-2))
 document.getElementById("heat").innerHTML=heatstr
-if (heat==2.5){
+if (heat==250){
 document.getElementById("heatcap").innerHTML=" (CAPPED)"
 }
-if (calc[0]>0.285714286){
+if (calc[0]>40){
 scoreinc+=100*((1-(calc[0]/140))/0.714285714)
+console.log(calc[0]+"a")
 } else {
 scoreinc+=100*((calc[0]/140)/0.285714286)
+console.log(calc[0]+"b")
 }
-if (calc[1]>0.285714286){
+if (calc[1]>40){
 scoreinc+=100*((1-(calc[1]/140))/0.714285714)
 } else {
 scoreinc+=100*((calc[1]/140)/0.285714286)
@@ -215,14 +219,14 @@ grillfire()
 function cookbars(){
 if (flipped[0]){
 if (cooking[0]){
-cookTime[0][1]-=heat
+cookTime[0][1]-=(heat/100)
 }
 document.getElementById("bar0").style.width=((Math.max(0,(cookTime[0][1]/140)))*100)+"%"
 document.getElementById("patty0").style.filter="brightness("+(Math.max(0,(cookTime[0][1]/140)))+")"
 burnbar(0,1)
 } else {
 if (cooking[0]){
-cookTime[0][0]-=heat
+cookTime[0][0]-=(heat/100)
 }
 document.getElementById("bar0").style.width=((Math.max(0,(cookTime[0][0]/140)))*100)+"%"
 document.getElementById("patty0").style.filter="brightness("+(Math.max(0,(cookTime[0][0]/140)))+")"
@@ -230,14 +234,14 @@ burnbar(0,0)
 }
 if (flipped[1]){
 if (cooking[1]){
-cookTime[1][1]-=heat
+cookTime[1][1]-=(heat/100)
 }
 document.getElementById("bar1").style.width=((Math.max(0,(cookTime[1][1]/140)))*100)+"%"
 document.getElementById("patty1").style.filter="brightness("+(Math.max(0,(cookTime[1][1]/140)))+")"
 burnbar(1,1)
 } else {
 if (cooking[1]){
-cookTime[1][0]-=heat
+cookTime[1][0]-=(heat/100)
 }
 document.getElementById("bar1").style.width=((Math.max(0,(cookTime[1][0]/140)))*100)+"%"
 document.getElementById("patty1").style.filter="brightness("+(Math.max(0,(cookTime[1][0]/140)))+")"
